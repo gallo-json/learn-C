@@ -20,17 +20,8 @@ int main(void) {
 
 int shifted_bits(unsigned int bit) {
     int count = count_bits(bit);
-    int c = 0;
-    int new_bit = 0;
-
-    for (int i = 0x80; i > 0; i = (i >> 1)) {
-        ++c;
-
-        if (c <= count)
-            new_bit |= i;
-    }
-
-    return new_bit;
+    
+    return ~(0) << 8 - count;
 }
 
 int count_bits(unsigned int bit) {
