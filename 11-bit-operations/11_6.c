@@ -19,17 +19,14 @@ int main(void) {
 }
 
 int shifted_bits(unsigned int bit) {
-    int count = count_bits(bit);
+    int new_bit = 0;
     
-    return ~(0) << 8 - count;
-}
-
-int count_bits(unsigned int bit) {
-    int count = 0;
-    // Loop 
     for (int i = 0x80; i > 0; i = (i >> 1)) {
-        if (bit & i) ++count;
+        if (bit & i) {
+            new_bit >>= 1;
+            new_bit |= 0x80;
+        }
     }
 
-    return count;
+    return new_bit;
 }
