@@ -3,12 +3,10 @@
  * 
  * USAGE 
  * 
- * ./cat -n - displays the line number as well
- * 
  * ./cat <file1> - display contents of a file to the standard output.
  * ./cat <file1> <file2> ... - concatenate the inputed files and display the contents.
  * ./cat <file1> <file2> ... > <newfile> - concatenate the inputed files and write them to a new file.
- * ./cat <file1> >> <file2> - append the contents from file1 to file2.
+ * ./cat <file1> <file2> ... >> <newfile> - append the contents from file1 to file2.
  * 
 **/
 
@@ -42,8 +40,10 @@ int main(int argc, char *argv[]) {
 
     char output[MAX_SIZE]; strcpy(output, cat(files, length(files), number_lines));
 
-    if (append == 2) printf("%s", output);
+    if (append == 2) puts(output);
     else write_to(output_file, output, append);
+
+    return 0;
 }
 
 
@@ -72,12 +72,9 @@ char *cat(char *files[], unsigned int num_files, unsigned int number_lines) {
                 strcat(output, line_buffer);
                 ++line_number;
             }
-        } else {
-            while (fgets(line, LINE_SIZE, file_ptr)) {
-                strcat(output, line);
-            }
-        }
-
+        } else 
+            while (fgets(line, LINE_SIZE, file_ptr)) strcat(output, line);
+        
         strcat(output, "\n");
 
         fclose(file_ptr);

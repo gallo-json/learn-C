@@ -2,20 +2,25 @@
 #include <string.h>
 
 int main(void) {
-    char string[] = "Hello world im s this";
+    int count_words(char*);
+
+    char string[] = "       ";
     printf("Number of words: %d\n", count_words(string));
     return (0);
 }
 
-int count_words(char string[]) {
-    int char_count = 0;
+int count_words(char *str) {
+    int count = 0;
 
-    for (int i = 0; i < strlen(string); i++) {
-        if (string[i] != ' ') 
-            ++char_count;
+    // Fixes wierd bug
+    if ((*str == '\0') || (*str == ' ' && *(str + 1) == ' ')) 
+        return count;
+
+    while (*str != '\0') {
+        if (*str == ' ' && *(str + 1) != ' ') 
+            ++count;
+        ++str;
     }
 
-    int num_of_spaces = strlen(string) - char_count;
-
-    return (num_of_spaces + 1);
+    return count + 1;
 }
